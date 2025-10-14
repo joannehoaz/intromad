@@ -145,8 +145,15 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  /*width: 128px;
+  height: auto;*/
+  /* CUSTOM changes */
+  height: calc(var(--nav-height) * 0.99);  /* Example: 75% of header */
+  width: auto;                             /* Maintain aspect ratio */
+  max-width: 180px;                        /* Optional: set a max width */
+  margin-top: 5px;                         /* Optional: fine-tune vertical alignment */
+  object-fit: contain;                     /* Ensures image shrinks to fit */
+  display: block;
 }
 
 /* sections */
