@@ -81,14 +81,19 @@ export default function decorate(block) {
       const res = await fetch(formEndpoint, {
         method: 'POST',
         body,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
       });
       if (res.ok) {
         messageEl.textContent = 'Thank you. Your message has been sent.';
         messageEl.classList.add('contact-form-message-success');
         form.reset();
       } else {
-        messageEl.textContent = 'Something went wrong. Please try again or contact us by email.';
+        const data = await res.json().catch(() => ({}));
+        const msg = data.error || `Something went wrong (${res.status}). Please try again or contact us by email.`;
+        messageEl.textContent = msg;
         messageEl.classList.add('contact-form-message-error');
       }
     } catch {
